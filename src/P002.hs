@@ -8,16 +8,25 @@ By considering the terms in the Fibonacci sequence whose values do not exceed
 four million, find the sum of the even-valued terms.
 -}
 
-import Common
+import qualified Common as C
 
 main :: IO ()
-main = do
-  putStr "P002: "
-  print $ p002 4000000
+main = -- do
+  -- C.time "P002(Basic): " $ p002Basic 4000000
+  C.time "P002: " $ p002 4000000
+
+-- ベーシックというか、フィボナッチ数列本来の再帰定義を用いる
+{-
+p002Basic :: Int -> Int
+p002Basic n = sum $ filter even $ takeWhile (< n) $ map fibonacci [(1::Int)..]
+  where fibonacci k | k == 1 = 1
+                    | k == 2 = 2
+                    | otherwise = fibonacci (k-1) + fibonacci (k-2)
+-}
 
 -- 通常のフィボナッチ数列は初項と第2項が1,1だが今回は1,2になっていることに注意
 fib12 :: [Int]
-fib12 = drop 2 Common.fib
+fib12 = drop 2 C.fib
 
 p002 :: Int -> Int
 p002 = sum . filter even . flip takeWhile fib12 . (>)
