@@ -8,10 +8,13 @@ numbers from 1 to 20?
 
 import qualified Common as C
 
+input :: Int
+input = 20
+
 main :: IO ()
 main = -- do
-  -- C.time "P005(Basic): " $ p005Basic 20
-  C.time "P005: " $ p005 20
+  -- C.time "P005(Basic): " $ p005Basic input
+  C.time "P005: " $ p005 input
 
 -- N以下の素数pについて、p^k <= N を満たす最大のp^kを算出し、全てをかける。
 {-

@@ -6,10 +6,13 @@ What is the largest prime factor of the number 600851475143 ?
 
 import qualified Common as C
 
+input :: Integer
+input = 600851475143
+
 main :: IO ()
 main = -- do
-  -- C.time "P003(Basic): " $ p003Basic 600851475143
-  C.time "P003: " $ p003 600851475143
+  -- C.time "P003(Basic): " $ p003Basic input
+  C.time "P003: " $ p003 input
 
 -- 素因数分解してやる
 {-

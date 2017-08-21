@@ -6,10 +6,13 @@ Find the sum of all the multiples of 3 or 5 below 1000.
 -}
 import qualified Common as C
 
+input :: Int
+input = 1000
+
 main :: IO ()
 main = -- do
-  -- C.time "P001(Basic): " $ p001Basic 1000
-  C.time "P001: " $ p001 1000
+  -- C.time "P001(Basic): " $ p001Basic input
+  C.time "P001: " $ p001 input
 
 {-
 p001Basic :: Int -> Int

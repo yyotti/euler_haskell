@@ -8,10 +8,13 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 import qualified Common as C
 import qualified Data.List as L
 
+input :: Int
+input = 3
+
 main :: IO ()
 main = -- do
-  -- C.time "P004(Basic): " $ p004Basic 3
-  C.time "P004: " $ p004 3
+  -- C.time "P004(Basic): " $ p004Basic input
+  C.time "P004: " $ p004 input
 
 -- 素直に全パターン探索
 {-

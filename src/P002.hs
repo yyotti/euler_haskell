@@ -10,10 +10,13 @@ four million, find the sum of the even-valued terms.
 
 import qualified Common as C
 
+input :: Int
+input = 4000000
+
 main :: IO ()
 main = -- do
-  -- C.time "P002(Basic): " $ p002Basic 4000000
-  C.time "P002: " $ p002 4000000
+  -- C.time "P002(Basic): " $ p002Basic input
+  C.time "P002: " $ p002 input
 
 -- ベーシックというか、フィボナッチ数列本来の再帰定義を用いる
 {-
