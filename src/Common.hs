@@ -31,7 +31,7 @@ primeFactors n | n < 1 = []
                | otherwise = pack $ pf n primes
   where pf _ [] = []
         pf 1 _ = []
-        pf k ps@(p:ts) | isPrime k = [k]
+        pf k ps@(p:ts) | p*p > k = [k]
                        | k `mod` p == 0 = p : pf (k `div` p) ps
                        | otherwise = pf k ts
         pack = map (length A.&&& head) . L.group
