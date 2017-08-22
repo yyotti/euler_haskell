@@ -1,3 +1,5 @@
+module P008 (main, solveBasic, solve) where
+
 {-
 The four adjacent digits in the 1000-digit number that have the greatest
 product are 9 x 9 x 8 x 9 = 5832.
@@ -56,22 +58,20 @@ input2 :: Int
 input2 = 13
 
 main :: IO ()
-main = -- do
-  -- C.time "P008(Basic): " $ p008Basic input1 input2
-  C.time "P008: " $ p008 input1 input2
+main = do
+  C.time "P008(Basic): " $ solveBasic input1 input2
+  C.time "P008: " $ solve input1 input2
 
 -- 全パターンを走査する
-{-
-p008Basic :: String -> Int -> Integer
-p008Basic s len = findProdMax digits
+solveBasic :: String -> Int -> Integer
+solveBasic s len = findProdMax digits
   where digits = map (read . return) s :: [Integer]
         findProdMax ds | length ds < len = 0
                        | otherwise = max (product $ take len ds) (findProdMax $ tail ds)
--}
 
 -- 0が入る部分は積をとっても0になるので除く
-p008 :: String -> Int -> Integer
-p008 s len = maximum $ map findProdMax $ filter ((>= len) . length) $ split0 digits
+solve :: String -> Int -> Integer
+solve s len = maximum $ map findProdMax $ filter ((>= len) . length) $ split0 digits
   where digits = map (read . return) s :: [Integer]
         split0 [] = []
         split0 ls = case span (/= 0) ls of

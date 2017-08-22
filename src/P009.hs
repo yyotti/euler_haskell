@@ -1,3 +1,5 @@
+module P009 (main, solveBasic, solve) where
+
 {-
 A Pythagorean triplet is a set of three natural numbers, a < b < c, for which,
 
@@ -15,26 +17,24 @@ input :: Int
 input = 1000
 
 main :: IO ()
-main = -- do
-  -- C.time "P009(Basic): " $ p009Basic input
-  C.time "P009: " $ p009 input
+main = do
+  C.time "P009(Basic): " $ solveBasic input
+  C.time "P009: " $ solve input
 
 -- 全パターンを試す。
 -- ただし、足してNになるパターンが1つだけというのは信用しないことにする。
 --
 -- a + b + c = N とすれば c = N - a - b であるから、a < b を満たすようにリスト
 -- を作ればよい。しかし c >= b になる可能性もあるのでフィルターする。
-{-
-p009Basic :: Int -> Int
-p009Basic s = case prods of
+solveBasic :: Int -> Int
+solveBasic s = case prods of
                    [] -> 0
                    _ -> maximum prods
   where prods = [a*b*c | a <- [1..s], b <- [(a+1)..s], c <- [s - a - b], b < c, a*a + b*b == c*c, a + b + c == s]
--}
 
 -- 原始ピタゴラス数を列挙して考える
-p009 :: Int -> Int
-p009 s = case prods of
+solve :: Int -> Int
+solve s = case prods of
                    [] -> 0
                    _ -> maximum prods
   where pytha = [(m*m - n*n, 2*m*n, m*m + n*n) | m <- [2,3..maxM], n <- [1..(m-1)],

@@ -1,3 +1,5 @@
+module P006 (main, solveBasic, solve) where
+
 {-
 The sum of the squares of the first ten natural numbers is,
 
@@ -20,18 +22,16 @@ input :: Int
 input = 100
 
 main :: IO ()
-main = -- do
-  -- C.time "P006(Basic): " $ p006Basic input
-  C.time "P006: " $ p006 input
+main = do
+  C.time "P006(Basic): " $ solveBasic input
+  C.time "P006: " $ solve input
 
 -- 問題に書いてあるまんま
-{-
-p006Basic :: Int -> Int
-p006Basic n = sum2 - sum1
+solveBasic :: Int -> Int
+solveBasic n = sum2 - sum1
   where pow2 = flip (^) (2::Int)
         sum1 = sum $ map pow2 [1..n]
         sum2 = pow2 $ sum [1..n]
--}
 
 -- 和の公式を使う
 --
@@ -42,5 +42,5 @@ p006Basic n = sum2 - sum1
 --   (1 + 2 + ... + N)^2 = {N(N+1)/2}^2
 -- これらの差をとればいいので、
 --   {N(N+1)/2}^2 - N(N+1)(2N+1)/6 = N(N+1)(N-1)(3N+2)/12
-p006 :: Int -> Int
-p006 n = n*(n+1)*(n-1)*(3*n+2) `div` 12
+solve :: Int -> Int
+solve n = n*(n+1)*(n-1)*(3*n+2) `div` 12
