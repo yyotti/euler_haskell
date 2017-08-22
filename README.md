@@ -15,7 +15,7 @@ runhaskell -isrc src/PXXX.hs
 
 ## テスト
 まずHSpecをCabalでインストールする。
-*Bash on WindowsではStackが遅すぎるのでCabalを使っているが、改善されたらStackでやるように修正する。*
+**Bash on WindowsではStackが遅すぎるのでCabalを使っているが、改善されたらStackでやるように修正する。**
 ```sh
 cabal update && cabal install hspec  # 公式にあるものそのまま
 ```
