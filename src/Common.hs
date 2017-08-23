@@ -19,12 +19,19 @@ time pre f = do
 fib :: [Int]
 fib = 0 : 1 : zipWith (+) fib (tail fib)
 
-primes :: [Integer]
-primes = 2 : filter isPrime [3, 5 ..]
+-- primes :: [Integer]
+-- primes = 2 : filter isPrime [3, 5 ..] -- My original
 
+primes :: [Integer]
+primes = 2 : 3 : 5 # primes
+  where _ # [] = [] -- dummy
+        _ # [_] = [] -- dummy
+        n # x@(m:p:ys) = [n | gcd m n < 2] ++ (n+2) # last (x : [m*p : ys | p*p - 3 < n])
+
+-- FIXME Miller-Rabin
 isPrime :: Integer -> Bool
 isPrime n | n < 2 = False
-          | otherwise = all ((/= 0) . (n `mod`)) . takeWhile ((<= n) . (^(2::Int))) $ primes
+          | otherwise = all ((/= 0) . (n `mod`)) . takeWhile ((<= n) . (^(2::Integer))) $ primes
 
 primeFactors :: Integer -> [(Int, Integer)]
 primeFactors n | n < 1 = []

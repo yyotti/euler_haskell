@@ -10,11 +10,11 @@ spec :: Spec
 spec = do
   describe "fib" $
     it "0,1から始まるフィボナッチ数列" $
-      take 10 C.fib `shouldBe` [0::Int, 1, 1, 2, 3, 5, 8, 13, 21, 34]
+      take 10 C.fib `shouldBe` [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
   describe "primes" $
     it "素数列" $
-      take 10 C.primes `shouldBe` [2::Integer, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+      take 10 C.primes `shouldBe` [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
 
   describe "isPrime" $ do
     it "1以下の場合はFalse" $

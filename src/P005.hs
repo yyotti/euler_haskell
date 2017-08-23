@@ -26,4 +26,4 @@ solveBasic n = product $ map (maxPow 1) $ takeWhile (<= fromIntegral n) C.primes
 
 -- 最小公倍数をとればよい。
 solve :: Int -> Integer
-solve n = foldr lcm (1::Integer) [1..(fromIntegral n)] -- FIXME Point-Free ?
+solve n = foldr lcm 1 [1..(fromIntegral n)] -- FIXME Point-Free ?
