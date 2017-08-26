@@ -3,11 +3,13 @@ module Common (
   fib,
   primes,
   isPrime,
-  primeFactors
+  primeFactors,
+  digits
 ) where
 import qualified Data.List as L
 import qualified Control.Arrow as A
 import qualified Data.Time as T
+import qualified Data.Char as C
 
 time :: Show a => String -> a -> IO ()
 time pre f = do
@@ -42,3 +44,7 @@ primeFactors n | n < 1 = []
                        | k `mod` p == 0 = p : pf (k `div` p) ps
                        | otherwise = pf k ts
         pack = map (length A.&&& head) . L.group
+
+digits :: (Integral a, Show a) => a -> [Int]
+digits n | n < 0 = []
+         | otherwise = map C.digitToInt $ show n
