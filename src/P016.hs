@@ -13,7 +13,7 @@ input = 1000
 
 main :: IO ()
 main = -- do
-  C.time "P015(Basic): " $ solveBasic input
+  C.time "P016(Basic): " $ solveBasic input
 
 -- 単純に2^1000を出して桁を足す
 solveBasic :: Int -> Int
