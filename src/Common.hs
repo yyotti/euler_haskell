@@ -4,7 +4,10 @@ module Common (
   primes,
   isPrime,
   primeFactors,
-  digits
+  digits,
+  permutation,
+  fact,
+  combination
 ) where
 import qualified Data.List as L
 import qualified Control.Arrow as A
@@ -48,3 +51,15 @@ primeFactors n | n < 1 = []
 digits :: (Integral a, Show a) => a -> [Int]
 digits n | n < 0 = []
          | otherwise = map C.digitToInt $ show n
+
+permutation :: Int -> Int -> Integer
+permutation n r | n < 0 || r < 0 || n < r = 0
+                | n == 0 || r == 0 = 1
+                | otherwise = fromIntegral n * permutation (n-1) (r-1)
+
+fact :: Int -> Integer
+fact n = permutation n n
+
+combination :: Int -> Int -> Integer
+combination n r | n < 0 || r < 0 = 0
+                | otherwise = permutation n r `div` fact r

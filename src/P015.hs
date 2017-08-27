@@ -20,11 +20,4 @@ main = -- do
 
 -- 入力をNとすると、(2N)C(N)を計算すればよい
 solveBasic :: Int -> Integer
-solveBasic n = combination (2*n) n
-
-permutation :: Int -> Int -> Integer
-permutation _ 0 = 1
-permutation n r = fromIntegral n * permutation (n-1) (r-1)
-
-combination :: Int -> Int -> Integer
-combination n r = permutation n r `div` permutation r r
+solveBasic n = C.combination (2*n) n
