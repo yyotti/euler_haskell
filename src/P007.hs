@@ -17,4 +17,4 @@ main = C.time "P007(Basic): " $ solveBasic input
 
 -- 素数列の先頭からN番目を返す
 solveBasic :: Int -> Integer
-solveBasic = head . flip drop C.primes . flip (-) 1
+solveBasic = head . flip drop C.primes . subtract 1

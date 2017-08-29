@@ -20,4 +20,4 @@ main = -- do
 
 -- 入力をNとすると、(2N)C(N)を計算すればよい
 solveBasic :: Int -> Integer
-solveBasic n = C.combination (2*n) n
+solveBasic = C.combination =<< (2*)

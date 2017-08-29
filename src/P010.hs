@@ -18,4 +18,4 @@ main =
 -- 素数列の先頭から足す
 -- エラトステネスの篩よりこっちのが速かった（実装が悪かった？）
 solveBasic :: Int -> Integer
-solveBasic n = sum $ takeWhile (<= fromIntegral n) C.primes -- FIXME Point-Free
+solveBasic = sum . flip takeWhile C.primes . flip (<=) . fromIntegral

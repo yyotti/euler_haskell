@@ -61,9 +61,9 @@ main = do
 
 -- 全パターンをチェックして最大値を得る
 solveBasic :: [[Int]] -> Int
-solveBasic ls = findMax ls 0 0
-  where findMax ns i j | i >= length ns = 0
-                       | otherwise = n + max (findMax ns (i+1) j) (findMax ns (i+1) (j+1))
+solveBasic = findMax 0 0
+  where findMax i j ns | i >= length ns = 0
+                       | otherwise = n + max (findMax (i+1) j ns) (findMax (i+1) (j+1) ns)
           where n = ns !! i !! j
 
 -- クレバーな方法

@@ -31,7 +31,7 @@ main = do
   C.time "P014: " $ solve input
 
 collatz :: Int -> Int
-collatz n | n `mod` 2 == 0 = n `div` 2
+collatz n | even n = n `div` 2
           | otherwise = 3*n + 1
 
 collatzChainLen :: Int -> Int
@@ -41,7 +41,7 @@ collatzChainLen n = 1 + collatzChainLen (collatz n)
 -- 全ての数でコラッツ数列を出してその長さをとる
 -- コラッツ数列そのものが欲しいわけではないので、長さだけカウントする
 solveBasic :: Int -> Int
-solveBasic = snd . maximum . map (collatzChainLen A.&&& id) . flip take [1..]
+solveBasic = snd . maximum . map (collatzChainLen A.&&& id) . enumFromTo 1
 
 -- メモ化を使う
 -- http://d.hatena.ne.jp/tanakh/20100411
@@ -49,7 +49,7 @@ solveBasic = snd . maximum . map (collatzChainLen A.&&& id) . flip take [1..]
 data Tree a = Tree a (Tree a) (Tree a)
 
 findTree :: Tree b -> Int -> b
-findTree tree ix = f (bits $ ix + 1) tree
+findTree tree = flip f tree . bits . (+ 1)
   where f [] (Tree v _ _) = v
         f (0:bs) (Tree _ l _) = f bs l
         f (_:bs) (Tree _ _ r) = f bs r
@@ -61,13 +61,14 @@ genTree f = gen 0
 
 memofix :: ((Int -> b) -> (Int -> b)) -> (Int -> b)
 memofix f = memof
-  where memof = f $ findTree tbl
-        tbl = genTree memof
+  where memof = f $ findTree $ genTree memof
 
 collatzChainLenMem :: Int -> Int
-collatzChainLenMem = memofix $ \f n -> if n == 1 then 0 else 1 + f (collatz n)
+collatzChainLenMem = memofix g
+  where g _ 1 = 0
+        g f n = 1 + f (collatz n)
 
 solve :: Int -> Int
-solve = snd . maximum . map (collatzChainLenMem A.&&& id) . flip take [1..]
+solve = snd . maximum . map (collatzChainLenMem A.&&& id) . enumFromTo 1
 
 {- FIXME 他の実装を試してみる -}

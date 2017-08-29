@@ -24,12 +24,12 @@ main = do
 --
 -- せめてメモ化再帰にしてみる
 solveBasic :: Int -> Int
-solveBasic n = sum $ filter even $ takeWhile (<= n) $ map fibonacci [(2::Int)..]
+solveBasic = sum . filter even . flip takeWhile (map fibonacci [2..]) . flip (<=)
   where fibonacci = (map f [0..] !!)
         f 0 = 0
         f 1 = 1
         f k = fibonacci (k-2) + fibonacci (k-1)
 
 solve :: Int -> Int
-solve = sum . filter even . flip takeWhile fib12 . (>=)
+solve = sum . filter even . flip takeWhile fib12 . flip (<=)
   where fib12 = drop 2 C.fib

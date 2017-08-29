@@ -20,10 +20,10 @@ main = do
 
 -- N以下の素数pについて、p^k <= N を満たす最大のp^kを算出し、全てをかける。
 solveBasic :: Int -> Integer
-solveBasic n = product $ map (maxPow 1) $ takeWhile (<= fromIntegral n) C.primes -- FIXME Point-Free ?
+solveBasic n = product $ map (maxPow 1) $ takeWhile (<= fromIntegral n) C.primes
   where maxPow m p | m * p <= fromIntegral n = maxPow (m * p) p
                    | otherwise = m
 
 -- 最小公倍数をとればよい。
 solve :: Int -> Integer
-solve n = foldr lcm 1 [1..(fromIntegral n)] -- FIXME Point-Free ?
+solve = foldr lcm 1 . enumFromTo 1 . fromIntegral

@@ -30,15 +30,16 @@ solveBasic :: Int -> Int
 solveBasic s = case prods of
                    [] -> 0
                    _ -> maximum prods
-  where prods = [a*b*c | a <- [1..s], b <- [(a+1)..s], c <- [s - a - b], b < c, a*a + b*b == c*c, a + b + c == s]
+  where prods = [a*b*c | a <- [1..s], b <- [(a+1)..s], c <- [s - a - b], b < c,
+                         a*a + b*b == c*c, a + b + c == s]
 
 -- 原始ピタゴラス数を列挙して考える
 solve :: Int -> Int
 solve s = case prods of
                    [] -> 0
                    _ -> maximum prods
-  where pytha = [(m*m - n*n, 2*m*n, m*m + n*n) | m <- [2,3..maxM], n <- [1..(m-1)],
-                                                 (m - n) `mod` 2 == 1, gcd m n == 1,
+  where pytha = [(m*m - n*n, 2*m*n, m*m + n*n) | m <- ms, n <- [1..(m-1)],
+                                                 odd (m - n), gcd m n == 1,
                                                  s `mod` (2*m*m + 2*m*n) == 0]
         prods = [a*b*c*d*d*d | (a, b, c) <- pytha, d <- [s `div` (a + b + c)]]
-        maxM = floor $ sqrt $ fromIntegral s  -- FIXME HLint warning
+        ms = takeWhile ((<= s) . (^(2::Int))) [2..]

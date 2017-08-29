@@ -120,7 +120,7 @@ main = -- do
 -- 入力自体を文字列にして10桁ごとに区切ってIntにして繰り上がりを考慮して和を
 -- とって結果の先頭10桁をとるのが正式か？
 solveBasic :: [Integer] -> Integer
-solveBasic ns = take10 $ sum ns
+solveBasic = take10 . sum
   where d10 = (10::Integer)^(10::Int)
-        take10 n | n >= d10 = take10 (n `div` 10)
+        take10 n | n >= d10 = take10 $ n `div` 10
                  | otherwise = n

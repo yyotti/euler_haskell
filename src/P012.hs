@@ -24,6 +24,7 @@ divisors?
 -}
 
 import qualified Common as C
+import qualified Control.Arrow as A
 
 input :: Int
 input = 500
@@ -37,8 +38,8 @@ triangles = scanl (+) 1 [2..]
 
 -- 素因数分解の結果から約数の個数を出す
 solveBasic :: Int -> Int
-solveBasic = fst . head . flip dropWhile (map (\t -> (t, (divisorCount . fromIntegral) t)) triangles) . flip (.) snd . (>=)
-  where divisorCount = product . map ((+ 1) . fst) . C.primeFactors
+solveBasic = fst . head . flip dropWhile (map (id A.&&& divisorCount) triangles) . flip (.) snd . flip (<=)
+  where divisorCount = product . map ((+ 1) . fst) . C.primeFactors . fromIntegral
 
 {-
 FIXME 素因数の個数を O(n^(1/3)) で出せるアルゴリズムがあるようなので試す

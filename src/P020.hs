@@ -20,4 +20,4 @@ main = -- do
 
 -- そのままやる
 solveBasic :: Int -> Int
-solveBasic n = sum $ C.digits $ C.fact n
+solveBasic = sum . C.digits . C.fact

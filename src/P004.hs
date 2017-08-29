@@ -9,6 +9,7 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 
 import qualified Common as C
 import qualified Data.List as L
+import qualified Control.Monad.List as M
 
 input :: Int
 input = 3
@@ -25,9 +26,10 @@ solveBasic d = maximum $ filter isPalindrome [x*y | x <- [from..to], y <- [x..to
         to = 10^d - 1
 
 isPalindrome :: Int -> Bool
-isPalindrome n = n == rev n 0 -- FIXME Point-Free
-  where rev k i | k == 0 = i
-                | otherwise = rev (k `div` 10) (i * 10 + k `mod` 10)
+isPalindrome = M.ap (==) rev
+  where rev = rev' 0
+        rev' i k | k == 0 = i
+                 | otherwise = rev' (i * 10 + k `mod` 10) (k `div` 10)
 
 -- 積が回文数になるためには、11の倍数が含まれていなければならない。
 --
@@ -42,5 +44,5 @@ solve d | d == 1 = 9
         to = t - t `mod` 11
         solve' [] = [] -- dummy
         solve' (x:xs) = case L.find isPalindrome (map (x*) [t,(t-1)..from]) of
-                            Just n -> n : solve' xs
-                            _      -> solve' xs
+                             Just n -> n : solve' xs
+                             _      -> solve' xs
