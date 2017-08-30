@@ -42,7 +42,7 @@ solve d | d == 1 = 9
   where from = 10^(d-1)
         t = 10^d - 1
         to = t - t `mod` 11
-        solve' [] = [] -- dummy
         solve' (x:xs) = case L.find isPalindrome (map (x*) [t,(t-1)..from]) of
                              Just n -> n : solve' xs
                              _      -> solve' xs
+        solve' _ = [] -- dummy
