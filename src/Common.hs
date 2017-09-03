@@ -7,7 +7,8 @@ module Common (
   digits,
   permutation,
   fact,
-  combination
+  combination,
+  sumDivisors
 ) where
 import qualified Data.List as L
 import qualified Control.Arrow as A
@@ -62,3 +63,7 @@ fact n = permutation n n
 combination :: Int -> Int -> Integer
 combination n r | n < 0 || r < 0 = 0
                 | otherwise = permutation n r `div` fact r
+
+sumDivisors :: Integer -> Integer
+sumDivisors = product . map (uncurry sumPow) . primeFactors
+  where sumPow = (sum .) . flip (map . (^)) . enumFromTo 0

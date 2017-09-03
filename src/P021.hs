@@ -24,9 +24,5 @@ main = -- do
 
 -- そのままやる
 solveBasic :: Int -> Integer
-solveBasic n = sum [k | (k, x) <- sums, x > 0, x /= k, sumDivisors x - x == k]
-  where sums = [(k, sumDivisors k - k) | k <- [1 .. fromIntegral n]]
-
-sumDivisors :: Integer -> Integer
-sumDivisors = product . map (uncurry sumPow) . C.primeFactors
-  where sumPow = (sum .) . flip (map . (^)) . enumFromTo 0
+solveBasic n = sum [k | (k, x) <- sums, x > 0, x /= k, C.sumDivisors x - x == k]
+  where sums = [(k, C.sumDivisors k - k) | k <- [1 .. fromIntegral n]]
