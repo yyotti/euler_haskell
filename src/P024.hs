@@ -46,21 +46,16 @@ permutations ls = concatMap (\x -> map (x:) $ permutations (filter (/= x) ls)) l
 --   N = N - k*(n-1)!
 -- として、再帰的に次の桁を確定する。
 solve1 :: [Int] -> Int -> Integer
-solve1 ds = toNum . solve1' ds
+solve1 = (toNum .) . (. fromIntegral) . solve1'
   where solve1' [] _ = []
-        solve1' ls@(_:ts) n = (ls !! k) : solve1' (dropN k ls) (n - k*f)
+        solve1' ls@(_:ts) n = (ls !! k) : solve1' (dropN k ls) (n - fromIntegral k*f)
           where k = subtract 1 $ length $ takeWhile (< n) $ map (f*) [0..]
-                f = fact $ length ts
+                f = C.fact $ length ts
 
 dropN :: Int -> [a] -> [a]
 dropN _ [] = []
 dropN 0 (_:ts) = ts
 dropN n (h:ts) = h : dropN (n-1) ts
-
--- FIXME Common.factの型をIntegralにする
-fact :: Int -> Int
-fact 0 = 1
-fact n = n * fact (n-1)
 
 -- 階乗進数でやる
 solve2 :: [Int] -> Int -> Integer
