@@ -22,7 +22,7 @@ time pre f = do
   e <- T.getCurrentTime
   putStrLn $ " (" ++ show (T.diffUTCTime e s) ++ ")"
 
-fib :: [Int]
+fib :: [Integer]
 fib = 0 : 1 : zipWith (+) fib (tail fib)
 
 -- primes :: [Integer]

@@ -32,4 +32,4 @@ solveBasic = sum . filter even . flip takeWhile (map fibonacci [2..]) . flip (<=
 
 solve :: Int -> Int
 solve = sum . filter even . flip takeWhile fib12 . flip (<=)
-  where fib12 = drop 2 C.fib
+  where fib12 = map fromInteger $ drop 2 C.fib
