@@ -18,9 +18,9 @@ import qualified Data.List as L
 
 main :: IO ()
 main = do
-  C.time "P023(Basic): " $ solveBasic [0..9] 1000000
-  C.time "P023 - 1: " $ solve1 [0..9] 1000000
-  C.time "P023 - 2: " $ solve2 [0..9] 1000000
+  C.time "P024(Basic): " $ solveBasic [0..9] 1000000
+  C.time "P024 - 1: " $ solve1 [0..9] 1000000
+  C.time "P024 - 2: " $ solve2 [0..9] 1000000
 
 toNum :: [Int] -> Integer
 toNum ls = read $ map Ch.intToDigit ls
