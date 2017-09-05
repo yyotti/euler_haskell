@@ -8,7 +8,8 @@ module Common (
   permutation,
   fact,
   combination,
-  sumDivisors
+  sumDivisors,
+  divisors
 ) where
 import qualified Data.List as L
 import qualified Control.Arrow as A
@@ -67,3 +68,11 @@ combination n r | n < 0 || r < 0 = 0
 sumDivisors :: Integer -> Integer
 sumDivisors = product . map (uncurry sumPow) . primeFactors
   where sumPow = (sum .) . flip (map . (^)) . enumFromTo 0
+
+divisors :: Integer -> [Integer]
+divisors n = L.sort $ divisors' [] $ takeWhile ((<= sqrtN) . fromIntegral) [1..]
+  where sqrtN = sqrt (fromIntegral n :: Float)
+        divisors' ls [] = ls
+        divisors' ls (d:ts) | n `mod` d /= 0 = divisors' ls ts
+                            | n `div` d == d = d:ls
+                            | otherwise = divisors' (ls ++ [d, n `div` d]) ts

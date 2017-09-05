@@ -82,3 +82,7 @@ spec = do
   describe "sumDivisors" $
     it "約数の和" $
       map C.sumDivisors [0,1,2,3,4,24] `shouldBe` [1,1,3,4,7,60]
+
+  describe "divisors" $
+    it "約数" $
+      map C.divisors [1,2,3,4,24] `shouldBe` [[1],[1,2],[1,3],[1,2,4],[1,2,3,4,6,8,12,24]]
