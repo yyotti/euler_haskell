@@ -41,19 +41,3 @@ spec = do
       map (P.solve2 [1, 2]) [1..2] `shouldBe` [12, 21]
     it "与えられた数値でできるN番目の順列 - 3" $
       map (P.solve2 [0, 1, 2]) [1..6] `shouldBe` [12, 21, 102, 120, 201, 210]
-
-  describe "factoradic" $
-    it "階乗進数の各桁の数" $
-      map P.factoradic [0..23] `shouldBe` [[], [1],
-                                           [1,0], [1,1], [2,0], [2,1],
-                                           [1,0,0], [1,0,1], [1,1,0], [1,1,1], [1,2,0], [1,2,1],
-                                           [2,0,0], [2,0,1], [2,1,0], [2,1,1], [2,2,0], [2,2,1],
-                                           [3,0,0], [3,0,1], [3,1,0], [3,1,1], [3,2,0], [3,2,1]]
-
-  describe "nthPermutation" $ do
-    it "N番目の順列 - 1" $
-      P.nthPermutation "" 1 `shouldBe` ""
-    it "N番目の順列 - 2" $
-      map (P.nthPermutation [1::Int, 2]) [1, 2] `shouldBe` [[1, 2], [2, 1]]
-    it "N番目の順列 - 3" $
-      map (P.nthPermutation [0::Int, 1, 2]) [1..6] `shouldBe` [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]

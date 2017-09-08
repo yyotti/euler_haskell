@@ -1,4 +1,4 @@
-module P024 (main, solveBasic, permutations, solve1, solve2, factoradic, nthPermutation) where
+module P024 (main, solveBasic, permutations, solve1, solve2) where
 
 {-
 A permutation is an ordered arrangement of objects. For example, 3124 is one
@@ -13,8 +13,6 @@ What is the millionth lexicographic permutation of the digits 0, 1, 2, 3, 4,
 -}
 
 import qualified Common as C
-import qualified Data.Char as Ch
-import qualified Data.List as L
 
 main :: IO ()
 main = do
@@ -22,13 +20,10 @@ main = do
   C.time "P024 - 1: " $ solve1 [0..9] 1000000
   C.time "P024 - 2: " $ solve2 [0..9] 1000000
 
-toNum :: [Int] -> Integer
-toNum ls = read $ map Ch.intToDigit ls
-
 -- 順列を作って指定された番号の要素をとる
 -- Data.List.permutations だと並びが違うので自前で作る
 solveBasic :: [Int] -> Int -> Integer
-solveBasic ls n = toNum $ permutations ls !! (n-1)
+solveBasic ls n = C.toNum $ permutations ls !! (n-1)
 
 permutations :: Eq a => [a] -> [[a]]
 permutations [] = [[]]
@@ -46,28 +41,12 @@ permutations ls = concatMap (\x -> map (x:) $ permutations (filter (/= x) ls)) l
 --   N = N - k*(n-1)!
 -- として、再帰的に次の桁を確定する。
 solve1 :: [Int] -> Int -> Integer
-solve1 = (toNum .) . (. fromIntegral) . solve1'
+solve1 = (C.toNum .) . (. fromIntegral) . solve1'
   where solve1' [] _ = []
-        solve1' ls@(_:ts) n = (ls !! k) : solve1' (dropN k ls) (n - fromIntegral k*f)
+        solve1' ls@(_:ts) n = (ls !! k) : solve1' (C.dropN k ls) (n - fromIntegral k*f)
           where k = subtract 1 $ length $ takeWhile (< n) $ map (f*) [0..]
                 f = C.fact $ length ts
 
-dropN :: Int -> [a] -> [a]
-dropN _ [] = []
-dropN 0 (_:ts) = ts
-dropN n (h:ts) = h : dropN (n-1) ts
-
 -- 階乗進数でやる
 solve2 :: [Int] -> Int -> Integer
-solve2 = (toNum .) . nthPermutation
-
-factoradic :: Int -> [Int]
-factoradic = reverse . factoradic' 2
-  where factoradic' _ 0 = []
-        factoradic' k d = d `mod` k : factoradic' (k+1) (d `div` k)
-
-nthPermutation :: [a] -> Int -> [a]
-nthPermutation [] _ = []
-nthPermutation ls n = reverse $ fst $ L.foldl' (\(p, l) k -> (l !! k : p, dropN k l)) ([], ls) fs
-  where fs = take (length ls - length fs') [0,0..] ++ fs'
-        fs' = factoradic (n - 1) ++ [0]
+solve2 = (C.toNum .) . C.nthPermutation

@@ -9,7 +9,11 @@ module Common (
   fact,
   combination,
   sumDivisors,
-  divisors
+  divisors,
+  dropN,
+  nthPermutation,
+  factoradic,
+  toNum
 ) where
 import qualified Data.List as L
 import qualified Control.Arrow as A
@@ -76,3 +80,22 @@ divisors n = L.sort $ divisors' [] $ takeWhile ((<= sqrtN) . fromIntegral) [1..]
         divisors' ls (d:ts) | n `mod` d /= 0 = divisors' ls ts
                             | n `div` d == d = d:ls
                             | otherwise = divisors' (ls ++ [d, n `div` d]) ts
+
+dropN :: Int -> [a] -> [a]
+dropN _ [] = []
+dropN 0 (_:ts) = ts
+dropN n (h:ts) = h : dropN (n-1) ts
+
+nthPermutation :: [a] -> Int -> [a]
+nthPermutation [] _ = []
+nthPermutation ls n = reverse $ fst $ L.foldl' (\(p, l) k -> (l !! k : p, dropN k l)) ([], ls) fs
+  where fs = take (length ls - length fs') [0,0..] ++ fs'
+        fs' = factoradic (n - 1) ++ [0]
+
+factoradic :: Int -> [Int]
+factoradic = reverse . factoradic' 2
+  where factoradic' _ 0 = []
+        factoradic' k d = d `mod` k : factoradic' (k+1) (d `div` k)
+
+toNum :: [Int] -> Integer
+toNum ls = read $ map C.intToDigit ls

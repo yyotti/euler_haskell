@@ -86,3 +86,19 @@ spec = do
   describe "divisors" $
     it "約数" $
       map C.divisors [1,2,3,4,24] `shouldBe` [[1],[1,2],[1,3],[1,2,4],[1,2,3,4,6,8,12,24]]
+
+  describe "factoradic" $
+    it "階乗進数の各桁の数" $
+      map C.factoradic [0..23] `shouldBe` [[], [1],
+                                           [1,0], [1,1], [2,0], [2,1],
+                                           [1,0,0], [1,0,1], [1,1,0], [1,1,1], [1,2,0], [1,2,1],
+                                           [2,0,0], [2,0,1], [2,1,0], [2,1,1], [2,2,0], [2,2,1],
+                                           [3,0,0], [3,0,1], [3,1,0], [3,1,1], [3,2,0], [3,2,1]]
+
+  describe "nthPermutation" $ do
+    it "N番目の順列 - 1" $
+      C.nthPermutation "" 1 `shouldBe` ""
+    it "N番目の順列 - 2" $
+      map (C.nthPermutation [1::Int, 2]) [1, 2] `shouldBe` [[1, 2], [2, 1]]
+    it "N番目の順列 - 3" $
+      map (C.nthPermutation [0::Int, 1, 2]) [1..6] `shouldBe` [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]]
